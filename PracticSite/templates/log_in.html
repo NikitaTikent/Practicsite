@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block body %}
+<style type="text/css">
+	.loginform{
+		float: left;
+		margin-top: 10vh;
+		margin-left: 40vw;
+	}
+</style>
+
+
+	<form method="post">
+		{% csrf_token %}
+		<div class="loginform">
+			<input type="text" name="username" placeholder="Логин...">
+			<p><input type="password" name="password">
+			<p><input type="submit" value="Вход">
+		</div>
+	</form>
+{% endblock %}

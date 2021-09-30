@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Блог{% endblock %}
+
+{% block body %}
+	<div style="align-content: center;">Статьи</div>
+
+	{% if perms.blog.add_article %}
+		<a href="{% url 'blog:add_article' %}">Добавить статью</a>
+	{% endif %}
+
+	{% if articles %}
+		{% for article in articles %}
+			<p><a href="{% url 'blog:article' article.pk %}">Статья: {{article.title}}</a>
+			<p>Текст: {{article.article|slice:':10'}}
+			<p><h6>Автор: {{article.user.username}}</h6>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

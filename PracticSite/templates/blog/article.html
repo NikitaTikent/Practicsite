@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{% if article %}
+		{{article.title}}
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+
+	{% if article %}
+		<h1>{{article.title}}</h1>
+		<h3>{{article.article}}</h3>
+		<h5>Автор: {{article.user.username}}</h5>
+		<h6>Дата публикации: {{article.date}}</h6>
+	{% endif %}
+
+	{% if user.username == article.user.username %}
+		<a href="">Изменить статью</a>
+		{% if perms.blog.delete_article %}
+			<p><a href="{% url 'blog:delete_article' article.pk %}">Удалить статью</a>
+		{% endif %}
+		{% if perms.blog.change_article %}
+			<p><a href="{% url 'blog:update_article' article.pk %}">Изменить статью</a>
+		{% endif %}
+	{% endif %}
+
+	{% if user.is_authenticated %}
+		<div class="comments">
+			<form method="post">
+				{% csrf_token %}
+				<input type="text" name="comment" placeholder="Комментарий" style="margin-top: 2vw;">
+				<p><input type="submit" value="Оставить комментарий">
+			</form>
+		</div>
+	{% else %}
+		<a href="{% url 'main:log_in' %}">Войти, чтобы оставить комментарий</a>
+	{% endif %}
+
+	{% if comments %}
+		<h2>Комментарии:</h2>
+		{% for comment in comments %}
+			<div class="comment" style="margin: 2vw 0 0 2vw;">
+				<p>Автор: {{comment.user.username}}
+				<p>Комментарий: {{comment.comment}}
+			</div>
+		{% endfor %}
+	{% endif %}
+
+
+{% endblock %}

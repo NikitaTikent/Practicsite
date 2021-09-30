@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить статью{% endblock %}
+
+{% block body %}
+	{% if form %}
+		<form method="post">
+			{% csrf_token %}
+			<input type="hidden" name="user" value="{{user.username}}">
+			{{form.as_p}}
+			<input type="submit" value="Добавить">
+		</form>
+	{% endif %}
+{% endblock %}
