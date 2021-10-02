@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block body %}
+<style type="text/css">
+	.MainMenu{
+		float: left;
+		margin: 5vh 5vw 0 10vw;
+	}
+	.BlockWrites{
+		clear: right;
+		float: right;
+		margin: 1vw 10vw 0 0;
+	}
+</style>
+
+	<div class='MainMenu'>
+		Пользователь: {{user.username}}
+		<p>{% if user_info %}
+			<img src="{{user_info.photo.url}}" style="max-height: 7vw; max-width: 7vw;">
+			<p><a href="{% url 'main:delete_user_photo' %}">Удалить фото</a>
+		{% else %}
+			<a href="{% url 'main:add_user_photo' %}">Добавить фото</a>
+		{% endif %}
+		<p>Имя: {{user.first_name}}
+		<p>Фамилия: {{user.last_name}}
+		<p>e-mail: {{user.email}}
+	</div>
+	<div class="BlockWrites">
+		<a href="{% url 'main:user_articles' %}">Ваши статьи</a>
+	</div>
+
+{% endblock %}

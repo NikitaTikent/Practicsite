@@ -3,13 +3,19 @@
 {% block title %}Вход{% endblock %}
 
 {% block body %}
-<style type="text/css">
-	.loginform{
-		float: left;
-		margin-top: 10vh;
-		margin-left: 40vw;
-	}
-</style>
+	<style type="text/css">
+		.loginform{
+			float: left;
+			margin-top: 10vh;
+			margin-left: 40vw;
+		}
+		.messages{
+			clear: left;
+			float: left;
+			margin-top: 1vw;
+			margin-left: 30vw;
+		}
+	</style>
 
 
 	<form method="post">
@@ -20,4 +26,13 @@
 			<p><input type="submit" value="Вход">
 		</div>
 	</form>
+
+	{% if messages %}
+	<div class="messages">
+		{% for message in messages %}
+		Ошибка: {{message}}
+		{% endfor %}
+	</div>
+	{% endif %}
+
 {% endblock %}
